@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchedulerHeader Component Base Render && Columns Count Test: baseRender 1`] = `
+<SchedulerHeader>
+  <div
+    className="scheduler-header"
+    id="schedulerHeader"
+    style={
+      Object {
+        "display": "inline-flex",
+        "height": "80px",
+        "maxHeight": "80px",
+        "position": "relative",
+        "userSelect": "none",
+      }
+    }
+  >
+    <div
+      className="scheduler-text scheduler-header-column"
+      id="schedulerHeaderColumn"
+      key="1"
+      style={
+        Object {
+          "display": "inline-flex",
+          "minWidth": "20px",
+          "width": "20px",
+        }
+      }
+    >
+      First
+    </div>
+    <div
+      className="scheduler-text scheduler-header-column"
+      id="schedulerHeaderColumn"
+      key="2"
+      style={
+        Object {
+          "display": "inline-flex",
+          "minWidth": "20px",
+          "width": "20px",
+        }
+      }
+    >
+      Second
+    </div>
+  </div>
+</SchedulerHeader>
+`;

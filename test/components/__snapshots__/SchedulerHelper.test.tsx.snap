@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchedulerHelper Component Base Render && Columns Count Test: baseRender 1`] = `
+<SchedulerHelper>
+  <div
+    className="scheduler-helper"
+    id="schedulerHelper"
+    style={
+      Object {
+        "display": "inline-flex",
+        "flexDirection": "column",
+        "maxWidth": "100px",
+        "position": "relative",
+        "userSelect": "none",
+        "width": "100px",
+      }
+    }
+  >
+    <div
+      className="scheduler-text scheduler-helper-row"
+      id="schedulerHelperRow"
+      key="0"
+      style={
+        Object {
+          "display": "inline-flex",
+          "height": "-40px",
+          "minHeight": "-40px",
+        }
+      }
+    >
+      First
+    </div>
+    <div
+      className="scheduler-text scheduler-helper-row"
+      id="schedulerHelperRow"
+      key="1"
+      style={
+        Object {
+          "display": "inline-flex",
+          "height": "-40px",
+          "minHeight": "-40px",
+        }
+      }
+    >
+      Second
+    </div>
+  </div>
+</SchedulerHelper>
+`;

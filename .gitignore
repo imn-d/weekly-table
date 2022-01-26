@@ -1,0 +1,17 @@
+node_modules
+
+public/build
+build
+
+.git
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.run
+coverage
+
+npm-debug.log*

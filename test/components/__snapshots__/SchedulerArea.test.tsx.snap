@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchedulerArea Component Base Render: baseRender 1`] = `
+<SchedulerArea>
+  <canvas
+    className="scheduler-area"
+    id="schedulerArea"
+    onMouseDown={[Function]}
+    onMouseLeave={[MockFunction]}
+    onMouseMove={[MockFunction]}
+    onMouseUp={[MockFunction]}
+    style={
+      Object {
+        "cursor": "crosshair",
+        "position": "absolute",
+        "zIndex": 3,
+      }
+    }
+  />
+</SchedulerArea>
+`;

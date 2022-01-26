@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popup Component Base Operations Base Render: baseRender 1`] = `
+<Popup>
+  <div
+    className="scheduler-popup-wrapper"
+    id="popupWrapper"
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseMove={[Function]}
+    style={
+      Object {
+        "boxSizing": "border-box",
+        "display": "grid",
+        "gridTemplateColumns": "15px 37.5px 30px",
+        "gridTemplateRows": "33px 103px 33px ",
+        "left": 5,
+        "maxWidth": 82.5,
+        "position": "absolute",
+        "top": -35,
+        "width": 82.5,
+        "zIndex": 5,
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "gridColumn": " 1",
+          "gridRow": "1 / 4",
+        }
+      }
+    />
+    <div
+      className="scheduler-popup scheduler-popup-top"
+      id="popupTop"
+      onMouseDown={[Function]}
+      onMouseMove={[MockFunction]}
+      onMouseUp={[Function]}
+      style={
+        Object {
+          "alignItems": "self-end",
+          "cursor": "n-resize",
+          "display": "flex",
+          "gridColumn": "2",
+          "gridRow": "1",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Memo()>
+        <svg
+          className="scheduler-icon drag-icon"
+          height={25}
+          id="dragIcon"
+          viewBox="0 0 25 25"
+          width={25}
+          x="0px"
+          xmlns="http://www.w3.org/2000/svg"
+          y="0px"
+        >
+          <path
+            d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"
+          />
+        </svg>
+      </Memo()>
+    </div>
+    <div
+      className="scheduler-popup scheduler-popup-right"
+      id="popupRight"
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "column",
+          "gridColumn": " 3",
+          "gridRow": "1 / 4",
+          "justifyContent": "space-around",
+        }
+      }
+    >
+      <div
+        className="popup-cancel-edit-icon"
+        id="popupCEIcon"
+        onClick={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+      >
+        <Memo()>
+          <svg
+            className="scheduler-icon edit-icon"
+            height={25}
+            id="editIcon"
+            viewBox="0 0 25 25"
+            width={25}
+            x="0px"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0px"
+          >
+            <path
+              d="M 18.414062 2 C 18.158188 2 17.902031 2.0974687 17.707031 2.2929688 L 16 4 L 20 8 L 21.707031 6.2929688 C 22.098031 5.9019687 22.098031 5.2689063 21.707031 4.8789062 L 19.121094 2.2929688 C 18.925594 2.0974687 18.669937 2 18.414062 2 z M 14.5 5.5 L 3 17 L 3 21 L 7 21 L 18.5 9.5 L 14.5 5.5 z"
+            />
+          </svg>
+        </Memo()>
+      </div>
+      <div
+        className="popup-delete-icon"
+        id="popupDeleteIcon"
+        onClick={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+            "display": "block",
+          }
+        }
+      >
+        <Memo()>
+          <svg
+            className="scheduler-icon delete-icon"
+            height={25}
+            id="deleteIcon"
+            viewBox="0 0 30 30"
+            width={25}
+            x="0px"
+            xmlns="http://www.w3.org/2000/svg"
+            y="0px"
+          >
+            <path
+              d="M 13 3 A 1.0001 1.0001 0 0 0 11.986328 4 L 6 4 A 1.0001 1.0001 0 1 0 6 6 L 24 6 A 1.0001 1.0001 0 1 0 24 4 L 18.013672 4 A 1.0001 1.0001 0 0 0 17 3 L 13 3 z M 6 8 L 6 24 C 6 25.105 6.895 26 8 26 L 22 26 C 23.105 26 24 25.105 24 24 L 24 8 L 6 8 z"
+            />
+          </svg>
+        </Memo()>
+      </div>
+    </div>
+    <div
+      className="scheduler-popup scheduler-popup-center"
+      id="popupCenter"
+      onMouseDown={[Function]}
+      onMouseMove={[MockFunction]}
+      onMouseUp={[Function]}
+      style={
+        Object {
+          "cursor": "grab",
+          "display": "block",
+          "gridColumn": "2",
+          "gridRow": "2",
+        }
+      }
+    />
+    <div
+      className="scheduler-popup scheduler-popup-bot"
+      id="popupBot"
+      onMouseDown={[Function]}
+      onMouseMove={[MockFunction]}
+      onMouseUp={[Function]}
+      style={
+        Object {
+          "alignItems": "self-start",
+          "cursor": "n-resize",
+          "display": "flex",
+          "gridColumn": "2",
+          "gridRow": "3",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Memo()>
+        <svg
+          className="scheduler-icon drag-icon"
+          height={25}
+          id="dragIcon"
+          viewBox="0 0 25 25"
+          width={25}
+          x="0px"
+          xmlns="http://www.w3.org/2000/svg"
+          y="0px"
+        >
+          <path
+            d="M20 9H4v2h16V9zM4 15h16v-2H4v2z"
+          />
+        </svg>
+      </Memo()>
+    </div>
+  </div>
+</Popup>
+`;
