@@ -1,6 +1,6 @@
 {
   "name": "weekly-table",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "homepage": "https://github.com/imn-d/weekly-table",
