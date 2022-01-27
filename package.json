@@ -1,5 +1,5 @@
 {
-  "name": "weekly-table",
+  "name": "react-weekly-table",
   "version": "1.0.2",
   "main": "build/index.js",
   "types": "build/index.d.ts",
