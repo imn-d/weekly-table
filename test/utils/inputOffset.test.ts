@@ -1,7 +1,7 @@
 import { inputOffset } from '../../src/utils';
 import { timeBlockFirst, timeBlockSecond } from '../helpers';
 
-describe('Inout Offset Util', () => {
+describe('Input Offset Util', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -27,6 +27,7 @@ describe('Inout Offset Util', () => {
       2,
     );
     expect(res).toEqual([
+      timeBlockSecond,
       {
         column: 1,
         startTime: 3600000,
@@ -34,7 +35,6 @@ describe('Inout Offset Util', () => {
         realStartTime: 3600000,
         realEndTime: 33600000,
       },
-      timeBlockSecond,
     ]);
     expect(res).toHaveLength(2);
   });
@@ -54,6 +54,7 @@ describe('Inout Offset Util', () => {
       2,
     );
     expect(res).toEqual([
+      timeBlockSecond,
       {
         column: 0,
         startTime: 80000 * 1000,
@@ -68,7 +69,6 @@ describe('Inout Offset Util', () => {
         realStartTime: 0,
         realEndTime: 33600000,
       },
-      timeBlockSecond,
     ]);
     expect(res).toHaveLength(3);
   });
@@ -88,6 +88,7 @@ describe('Inout Offset Util', () => {
       2,
     );
     expect(res).toEqual([
+      timeBlockSecond,
       {
         column: 1,
         startTime: 68400000,
@@ -95,7 +96,6 @@ describe('Inout Offset Util', () => {
         realStartTime: 68400000,
         realEndTime: 79200000,
       },
-      timeBlockSecond,
     ]);
     expect(res).toHaveLength(2);
   });
@@ -115,6 +115,7 @@ describe('Inout Offset Util', () => {
       2,
     );
     expect(res).toEqual([
+      timeBlockSecond,
       {
         column: 1,
         startTime: 68400000,
@@ -129,7 +130,6 @@ describe('Inout Offset Util', () => {
         realStartTime: 0,
         realEndTime: 7200000,
       },
-      timeBlockSecond,
     ]);
     expect(res).toHaveLength(3);
   });

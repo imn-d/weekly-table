@@ -18,7 +18,7 @@ import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
-import React, { FC, createRef, useCallback, useEffect, useState } from 'react';
+import React, { FC, createRef, useCallback, useState } from 'react';
 
 import { ScheduleGroup } from '../src';
 import './main.css';
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     position: 'relative',
     height: 600,
     color: 'white',
-    background: '#0f3bdb',
+    background: '#1976d2',
     borderRadius: 5,
     boxShadow: '0 3px 5px 2px rgba(30, 30, 31, 0.3)',
   },
@@ -59,24 +59,10 @@ export const Demo: FC = () => {
 
   const { fiveExample, weekendExample, complexExample } = useDataExample();
 
-  const [initValue, setInitValue] = useState<ScheduleGroup[] | undefined>(
-    undefined,
-  );
+  const [initValue, setInitValue] = useState<ScheduleGroup[]>([]);
+  const [output, setOutput] = useState<ScheduleGroup[]>([]);
 
   const { handleTimezone, timezone, offsetOptions } = useTimezone();
-
-  const [output, setOutput] = useState<ScheduleGroup[]>();
-
-  const [draw, setDraw] = useState<boolean>(false);
-
-  useEffect(() => {
-    document.addEventListener('mousedown', () => setDraw(true));
-    document.addEventListener('mouseup', () => setDraw(false));
-    return () => {
-      document.removeEventListener('mousedown', () => setDraw(true));
-      document.removeEventListener('mouseup', () => setDraw(false));
-    };
-  }, []);
 
   return (
     <>
@@ -175,27 +161,23 @@ export const Demo: FC = () => {
             <div className={classes.out}>{'End Time' + ' | '}</div>
             <div className={classes.out}>Group Mask</div>
           </Box>
-          {!draw ? (
-            output?.map((out, index) => (
-              <div key={index} className={classes.outBox}>
-                <div className={classes.out}>
-                  {out.startTime +
-                    ' (' +
-                    new Date(out.startTime).toISOString().substr(11, 8) +
-                    ') | '}
-                </div>
-                <div className={classes.out}>
-                  {out.endTime +
-                    ' (' +
-                    new Date(out.endTime).toISOString().substr(11, 8) +
-                    ') | '}
-                </div>
-                <div className={classes.out}>{out.mask}</div>
+          {output?.map((out, index) => (
+            <div key={index} className={classes.outBox}>
+              <div className={classes.out}>
+                {out.startTime +
+                  ' (' +
+                  new Date(out.startTime).toISOString().substr(11, 8) +
+                  ') | '}
               </div>
-            ))
-          ) : (
-            <></>
-          )}
+              <div className={classes.out}>
+                {out.endTime +
+                  ' (' +
+                  new Date(out.endTime).toISOString().substr(11, 8) +
+                  ') | '}
+              </div>
+              <div className={classes.out}>{out.mask}</div>
+            </div>
+          ))}
         </Grid>
       </Container>
     </>

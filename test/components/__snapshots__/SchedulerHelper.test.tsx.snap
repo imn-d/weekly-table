@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SchedulerHelper Component Base Render && Columns Count Test: baseRender 1`] = `
+exports[
+  `SchedulerHelper Component Base Render && Columns Count Test: baseRender 1`
+] = `
 <SchedulerHelper>
   <div
     className="scheduler-helper"

@@ -53,4 +53,37 @@ describe('Input Parser Util', () => {
       },
     ]);
   });
+
+  it('Not First Columns Input', () => {
+    const res = inputParser(
+      [
+        {
+          startTime: 1000 * 60 * 60 * 12,
+          endTime: 1000 * 60 * 60 * 15,
+          mask: 96,
+        },
+      ],
+      7,
+      -300,
+    );
+
+    expect(res).toEqual([
+      {
+        ...timeBlockFirst,
+        column: 5,
+        startTime: 43200300,
+        endTime: 54000300,
+        realEndTime: undefined,
+        realStartTime: undefined,
+      },
+      {
+        ...timeBlockSecond,
+        column: 6,
+        startTime: 43200300,
+        endTime: 54000300,
+        realEndTime: undefined,
+        realStartTime: undefined,
+      },
+    ]);
+  });
 });

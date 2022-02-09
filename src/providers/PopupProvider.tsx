@@ -18,6 +18,7 @@ import {
 } from '../common';
 import { useCells } from './CellsProvider';
 import { usePointerLock } from './PointerLockProvider';
+import { useScheduler } from './Scheduler';
 import { useTimeBlock } from './TimeBlockProvider';
 
 const PopupContext = createContext<PopupProps>({} as PopupProps);
@@ -35,7 +36,7 @@ const PopupProvider: FC = ({ children }) => {
   const { blocks, setBlocks, handleHistory, undoHistory } = useTimeBlock();
   const { millisPerPixel, msTime } = useCells();
   const { isLocking, movement, action } = usePointerLock();
-
+  const { mouseSpeed } = useScheduler();
   /**
    * Popup state, component have only one popup
    */
@@ -137,7 +138,7 @@ const PopupProvider: FC = ({ children }) => {
   const handleMove = useCallback(
     (block: TimeBlock, movementY: number) => {
       const oldTop = block.top;
-      const newTop = oldTop + movementY;
+      const newTop = oldTop + movementY * mouseSpeed;
 
       const newBlocks = [...blocks].filter((b) => b.id !== block.id);
       const dateDiff = (newTop - oldTop) * millisPerPixel;
@@ -166,7 +167,7 @@ const PopupProvider: FC = ({ children }) => {
       };
       setBlocks(newBlocks.concat(movedBlock));
     },
-    [blocks, millisPerPixel, setBlocks, msTime],
+    [mouseSpeed, blocks, millisPerPixel, msTime],
   );
 
   /**
@@ -179,7 +180,7 @@ const PopupProvider: FC = ({ children }) => {
       const newBlocks = blocks.filter((b) => b.id !== block.id);
       if (dir === DIR.TOP) {
         const oldTop = block.top;
-        const newTop = oldTop + movementY;
+        const newTop = oldTop + movementY * mouseSpeed;
         const dateDiff = (newTop - oldTop) * millisPerPixel;
         const newStart = block.realStartTime + dateDiff;
 
@@ -203,7 +204,7 @@ const PopupProvider: FC = ({ children }) => {
 
       if (dir === DIR.BOTTOM) {
         const oldBot = block.height;
-        const newBot = oldBot + movementY;
+        const newBot = oldBot + movementY * mouseSpeed;
         const dateDiff = (newBot - oldBot) * millisPerPixel;
 
         const newEnd = block.realEndTime + dateDiff;
@@ -222,8 +223,7 @@ const PopupProvider: FC = ({ children }) => {
         setBlocks(newBlocks.concat(movedBlock));
       }
     },
-    //eslint-disable-next-line
-    [blocks, millisPerPixel, msTime],
+    [blocks, millisPerPixel, mouseSpeed, msTime],
   );
 
   /**
@@ -248,7 +248,6 @@ const PopupProvider: FC = ({ children }) => {
           return;
       }
     }
-    //eslint-disable-next-line
   }, [action, isLocking, movement, popup?.block]);
 
   return (

@@ -1,7 +1,5 @@
 import { mount } from 'enzyme';
 import React, { FC } from 'react';
-import 'short-uuid';
-import short from 'short-uuid';
 
 import {
   CanvasProps,
@@ -18,6 +16,7 @@ import * as uc from '../../src/providers/CellsProvider';
 import * as up from '../../src/providers/PointerLockProvider';
 import * as us from '../../src/providers/Scheduler';
 import TimeBlockProvider from '../../src/providers/TimeBlockProvider';
+import * as rand from '../../src/utils/random';
 import { cellsGenerator, fullTimeBlock, scheduleGroup } from '../helpers';
 
 describe('TimeBlock Provider', () => {
@@ -26,9 +25,7 @@ describe('TimeBlock Provider', () => {
   const useCanvasMock = jest.spyOn(ucan, 'useCanvas');
   const useLockMock = jest.spyOn(up, 'usePointerLock');
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  jest.spyOn(short, 'generate').mockReturnValue('1111');
+  jest.spyOn(rand, 'random').mockReturnValue('1111');
 
   const schedulerMock = {
     columns: schedulerColumns,

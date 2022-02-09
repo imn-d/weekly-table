@@ -12,24 +12,30 @@ export const inputParser = (
   columnsLength: number,
   tzOffset: number,
 ): TimeBlock[] => {
-  const inputBlocks: TimeBlock[] = [];
-  defaultValue.forEach((df) => {
-    let binMask = df.mask.toString(2);
-    if (binMask.length < columnsLength)
-      binMask = '0'.repeat(columnsLength - binMask.length).concat(binMask);
+  return defaultValue.reduce<TimeBlock[]>(
+    (acc: TimeBlock[], current: ScheduleGroup) => {
+      let binMask = current.mask.toString(2);
+      if (binMask.length < columnsLength) {
+        binMask = '0'.repeat(columnsLength - binMask.length).concat(binMask);
+      }
 
-    const inputColumns = [...binMask].reverse();
-    const ofStart = df.startTime - tzOffset;
-    const ofEnd = df.endTime - tzOffset;
-    for (let i = 0; i < inputColumns.length; i++) {
-      if (inputColumns[i] === '0') continue;
-      inputBlocks.push({
-        startTime: ofStart,
-        endTime: ofEnd,
-        column: i,
-      } as TimeBlock);
-    }
-  });
+      const inputColumns = [...binMask].reverse();
+      const ofStart = current.startTime - tzOffset;
+      const ofEnd = current.endTime - tzOffset;
 
-  return inputBlocks;
+      const filtered = inputColumns.reduce<TimeBlock[]>(
+        (acc: TimeBlock[], current: string, currentIndex: number) => {
+          if (current === '0') return acc.concat();
+          return acc.concat({
+            startTime: ofStart,
+            endTime: ofEnd,
+            column: currentIndex,
+          } as TimeBlock);
+        },
+        [],
+      );
+      return acc.concat(filtered);
+    },
+    [],
+  );
 };

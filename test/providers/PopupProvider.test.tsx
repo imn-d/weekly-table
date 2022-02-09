@@ -7,11 +7,13 @@ import {
   CellsProps,
   HOUR_24,
   PointerLockProps,
+  SchedulerProps,
   TimeBlockProps,
 } from '../../src/common';
 import * as uc from '../../src/providers/CellsProvider';
 import * as up from '../../src/providers/PointerLockProvider';
 import PopupProvider, { usePopup } from '../../src/providers/PopupProvider';
+import * as us from '../../src/providers/Scheduler';
 import * as ut from '../../src/providers/TimeBlockProvider';
 import { timeBlockFirst, timeBlockSecond } from '../helpers';
 
@@ -19,6 +21,7 @@ describe('Popup Provider', () => {
   const useCellMock = jest.spyOn(uc, 'useCells');
   const useLockMock = jest.spyOn(up, 'usePointerLock');
   const useTimeMock = jest.spyOn(ut, 'useTimeBlock');
+  const useSchedulerMock = jest.spyOn(us, 'useScheduler');
 
   const setBlocks = jest.fn();
   const handleHistory = jest.fn();
@@ -34,6 +37,10 @@ describe('Popup Provider', () => {
     movement: 0,
     action: ACTION.MOVE,
   } as PointerLockProps;
+
+  const schedulerMock = {
+    mouseSpeed: 1,
+  } as SchedulerProps;
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -78,6 +85,7 @@ describe('Popup Provider', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     useCellMock.mockReturnValue(cellsMock);
+    useSchedulerMock.mockReturnValue(schedulerMock);
   });
 
   describe('isAllowing Test', () => {

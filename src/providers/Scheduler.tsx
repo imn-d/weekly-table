@@ -1,4 +1,10 @@
-import React, { FC, createContext, useContext } from 'react';
+import React, {
+  FC,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import {
   BlockColorsProps,
@@ -27,6 +33,17 @@ export const useScheduler = (): SchedulerProps => useContext(SchedulerContext);
  * @param props{@link SchedulerInputProps} initial props
  */
 const Scheduler: FC<SchedulerInputProps> = (props: SchedulerInputProps) => {
+  const [update, setUpdate] = useState<number>(0);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => setUpdate((update) => update + 1));
+    return () => {
+      window.removeEventListener('resize', () =>
+        setUpdate((update) => update + 1),
+      );
+    };
+  }, []);
+
   return (
     <SchedulerContext.Provider
       value={{
@@ -47,6 +64,7 @@ const Scheduler: FC<SchedulerInputProps> = (props: SchedulerInputProps) => {
         columns: props?.columns ? props.columns : schedulerColumns,
         rows: props?.rows ? props.rows : schedulerRows,
         requiredTZOffset: props?.requiredTZOffset,
+        mouseSpeed: props?.mouseSpeed ? props.mouseSpeed : 3,
         defaultValue: props?.defaultValue,
         onChange: props?.onChange,
       }}

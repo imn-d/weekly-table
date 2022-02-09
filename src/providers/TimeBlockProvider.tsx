@@ -7,7 +7,6 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import short from 'short-uuid';
 
 import {
   Cell,
@@ -16,7 +15,13 @@ import {
   TimeBlock,
   TimeBlockProps,
 } from '../common';
-import { inputOffset, inputParser, outputMerger, outputOffset } from '../utils';
+import {
+  inputOffset,
+  inputParser,
+  outputMerger,
+  outputOffset,
+  random,
+} from '../utils';
 import { useCanvas } from './CanvasProvider';
 import { useCells } from './CellsProvider';
 import { usePointerLock } from './PointerLockProvider';
@@ -46,6 +51,18 @@ const TimeBlockProvider: FC = ({ children }) => {
     useCells();
   const { isDrawing } = useCanvas();
   const { isLocking } = usePointerLock();
+
+  /**
+   * Browser timezone offset in ms
+   */
+  const browserOffset = useMemo(() => {
+    return new Date().getTimezoneOffset() * 60 * 1000;
+  }, []);
+
+  /**
+   * Working offset state
+   */
+  const [tzOffset, setTZOffset] = useState<number>(browserOffset);
 
   /**
    * Primary timeblocks state
@@ -82,18 +99,6 @@ const TimeBlockProvider: FC = ({ children }) => {
     setBlocks(history[history.length - 2]);
     setHistory([...history.slice(0, history.length - 1)]);
   }, [history]);
-
-  /**
-   * Browser timezone offset in ms
-   */
-  const browserOffset = useMemo(() => {
-    return new Date().getTimezoneOffset() * 60 * 1000;
-  }, []);
-
-  /**
-   * Working offset state
-   */
-  const [tzOffset, setTZOffset] = useState<number>(browserOffset);
 
   /**
    * Selecting between browser timezone and required timezone
@@ -197,7 +202,7 @@ const TimeBlockProvider: FC = ({ children }) => {
         );
         if (cEnd <= nEnd + 1 && cEnd >= next.top - 1) {
           const object = {
-            id: short.generate(),
+            id: random(),
             startTime: current.startTime,
             endTime: next.endTime,
             width: current.width,
@@ -215,7 +220,7 @@ const TimeBlockProvider: FC = ({ children }) => {
         if (next.top <= cEnd && next.top >= current.top) {
           const object = {
             ...current,
-            id: short.generate(),
+            id: random(),
           } as TimeBlock;
           setBlocks(newSetBlocks.concat(object));
           break;
@@ -242,7 +247,7 @@ const TimeBlockProvider: FC = ({ children }) => {
       const timeFrameEnd = (endRow.row + 1) * msTime;
 
       return {
-        id: short.generate(),
+        id: random(),
         startTime: timeFrameStart,
         endTime: timeFrameEnd,
         width: widthStep * 0.75,
@@ -265,7 +270,6 @@ const TimeBlockProvider: FC = ({ children }) => {
     }
 
     setCells(cells.map((cell) => ({ ...cell, isSelected: false })));
-    //eslint-disable-next-line
   }, [blocks, cells, isDrawing, preview, msTime, widthStep]);
 
   /**
@@ -273,7 +277,6 @@ const TimeBlockProvider: FC = ({ children }) => {
    */
   useEffect(() => {
     if (!defaultValue || !widthStep || !helperWidthProp) return;
-
     const correctedBlocks = inputOffset(
       inputParser(defaultValue, columns.length, tzOffset),
       columns.length,
@@ -283,7 +286,7 @@ const TimeBlockProvider: FC = ({ children }) => {
       (ib) =>
         ({
           ...ib,
-          id: short.generate(),
+          id: random(),
           realStartTime: ib.startTime,
           realEndTime: ib.endTime,
           top: ib.startTime / millisPerPixel + headerHeightProp,
@@ -295,7 +298,6 @@ const TimeBlockProvider: FC = ({ children }) => {
     );
     setBlocks(newBlocks);
     handleHistory(newBlocks);
-    //eslint-disable-next-line
   }, [
     columns?.length,
     defaultValue,
@@ -310,7 +312,7 @@ const TimeBlockProvider: FC = ({ children }) => {
    * Output-offseter - sets output schedule groups to UTC+0 timezone
    */
   useEffect(() => {
-    if (!onChange) return;
+    if (!onChange || isLocking) return;
 
     const mergedBlocks = outputMerger(
       outputOffset(blocks, tzOffset, columns),
@@ -339,8 +341,7 @@ const TimeBlockProvider: FC = ({ children }) => {
     });
 
     onChange(shGroup);
-    //eslint-disable-next-line
-  }, [blocks, columns, tzOffset]);
+  }, [blocks, columns, isLocking, tzOffset]);
 
   return (
     <TimeBlockContext.Provider

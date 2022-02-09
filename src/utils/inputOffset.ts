@@ -10,104 +10,116 @@ export const inputOffset = (
   inputBlocks: TimeBlock[],
   columnsLength: number,
 ): TimeBlock[] => {
-  const correctedBlocks: TimeBlock[] = [];
-  inputBlocks.forEach((ib) => {
-    /**
-     * Timeblock moving to next day
-     */
-    if (ib.endTime > 86400 * 1000) {
-      const newCol = ib.column + 1 >= columnsLength ? 0 : ib.column + 1;
-      const newEnd = ib.endTime - HOUR_24;
-      const newStart = ib.startTime - HOUR_24;
+  /**
+   * Internal one day
+   */
+  const currentDayBlocks = inputBlocks.filter(
+    (ib) => ib.startTime >= 0 && ib.endTime <= HOUR_24,
+  );
+
+  /**
+   * Timeblock moving to next day
+   */
+  const nextDayBlocks = inputBlocks
+    .filter((ib) => ib.endTime > HOUR_24 && ib.startTime >= 0)
+    .reduce((acc: TimeBlock[], block: TimeBlock) => {
+      const newCol = block.column + 1 >= columnsLength ? 0 : block.column + 1;
+      const newEnd = block.endTime - HOUR_24;
+      const newStart = block.startTime - HOUR_24;
+
       /**
-       * Full moving
+       * Timeblock moving to next day
        */
-      if (newStart > 0) {
-        correctedBlocks.push({
-          ...ib,
+      if (newStart > 0)
+        return acc.concat({
+          ...block,
           startTime: newStart,
           endTime: newEnd,
           realStartTime: newStart,
           realEndTime: newEnd,
           column: newCol,
         });
-        return;
-      }
+
       /**
        * Split timeblock to 2 non-zero ranges
        */
-      if (ib.startTime < HOUR_24) {
-        correctedBlocks.push({
-          ...ib,
-          startTime: ib.startTime,
-          endTime: HOUR_24,
-          realStartTime: ib.startTime,
-          realEndTime: HOUR_24,
-          column: ib.column,
-        });
-      }
-      correctedBlocks.push({
-        ...ib,
+      const secondBlock = {
+        ...block,
         startTime: 0,
         endTime: newEnd,
         realStartTime: 0,
         realEndTime: newEnd,
         column: newCol,
-      });
-      return;
-    }
-    /**
-     * Timeblock moving to previously day
-     */
-    if (ib.startTime < 0) {
-      const newCol = ib.column - 1 < 0 ? columnsLength - 1 : ib.column - 1;
-      const newStart = HOUR_24 + ib.startTime;
-      const newEnd = HOUR_24 + ib.endTime;
+      };
+
+      if (block.startTime < HOUR_24) {
+        return acc.concat(
+          {
+            ...block,
+            startTime: block.startTime,
+            endTime: HOUR_24,
+            realStartTime: block.startTime,
+            realEndTime: HOUR_24,
+            column: block.column,
+          },
+          secondBlock,
+        );
+      }
+
+      return acc.concat(secondBlock);
+    }, []);
+
+  /**
+   * Timeblock moving to previously day
+   */
+  const prevDayBlocks = inputBlocks
+    .filter((ib) => ib.startTime < 0 && ib.endTime <= HOUR_24)
+    .reduce((acc: TimeBlock[], block: TimeBlock) => {
+      const newCol =
+        block.column - 1 < 0 ? columnsLength - 1 : block.column - 1;
+      const newStart = HOUR_24 + block.startTime;
+      const newEnd = HOUR_24 + block.endTime;
+
       /**
        * Full moving
        */
       if (newEnd < HOUR_24) {
-        correctedBlocks.push({
-          ...ib,
+        return acc.concat({
+          ...block,
           startTime: newStart,
           endTime: newEnd,
           realStartTime: newStart,
           realEndTime: newEnd,
           column: newCol,
         });
-        return;
       }
+
       /**
        * Split timeblock to 2 non-zero ranges
        */
-      correctedBlocks.push({
-        ...ib,
+      const ndEnd = HOUR_24 - (HOUR_24 - block.endTime);
+      const firstBlock = {
+        ...block,
         startTime: newStart,
         endTime: HOUR_24,
         realStartTime: newStart,
         realEndTime: HOUR_24,
         column: newCol,
-      });
-      const ndEnd = HOUR_24 - (HOUR_24 - ib.endTime);
+      };
+
       if (ndEnd !== 0) {
-        correctedBlocks.push({
-          ...ib,
+        return acc.concat(firstBlock, {
+          ...block,
           startTime: 0,
           endTime: ndEnd,
           realStartTime: 0,
           realEndTime: ndEnd,
-          column: ib.column,
+          column: block.column,
         });
       }
-      return;
-    }
-    /**
-     * Internal day moving
-     */
-    correctedBlocks.push({
-      ...ib,
-    });
-  });
 
-  return correctedBlocks;
+      return acc.concat(firstBlock);
+    }, []);
+
+  return [...currentDayBlocks, ...nextDayBlocks, ...prevDayBlocks];
 };

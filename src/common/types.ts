@@ -11,6 +11,7 @@ import React from 'react';
  * @property timeframe - minutes count per 1 cell
  * @property columns - days of week list
  * @property rows - time descriptions list
+ * @property mouseSpeed - moving-resizing const
  * @property requiredTZOffset - used timezone
  * @property defaultValue - initial scheduler value
  * @property onChange - callback, schedules return in UTC+0
@@ -25,6 +26,7 @@ export interface SchedulerInputProps {
   timeframe?: number;
   columns?: SchedulerColumnsProps[];
   rows?: string[];
+  mouseSpeed?: number;
   requiredTZOffset?: number;
   defaultValue?: ScheduleGroup[];
   onChange?: (groups: ScheduleGroup[]) => void;
@@ -44,6 +46,7 @@ export interface SchedulerProps {
   timeframe: number;
   columns: SchedulerColumnsProps[];
   rows: string[];
+  mouseSpeed: number;
   requiredTZOffset?: number;
   defaultValue?: ScheduleGroup[];
   onChange?: (groups: ScheduleGroup[]) => void;
@@ -172,7 +175,7 @@ export interface PointerLockProps {
 
 /**
  * Time block props
- * @property id - short-uuid
+ * @property id - generated string
  * @property top - top relative position
  * @property left -  left relative position
  * @property width - time block width
