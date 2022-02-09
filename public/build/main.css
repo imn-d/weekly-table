@@ -1,0 +1,56 @@
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+#timeCapture {
+  color: black;
+}
+
+#schedulerHeaderColumn,
+#schedulerHelperRow {
+  color: currentcolor;
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: center;
+  align-items: center;
+}
+
+.scheduler-icon {
+  fill: whitesmoke;
+  border-radius: 5px;
+}
+
+.scheduler-icon:hover {
+  background: gray;
+}
+
+#timeBlock {
+  box-shadow: rgba(21, 19, 19, 0.3) 5px 7px 12px 0;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#timeDisplay {
+  color: white;
+  margin: 1px 0 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#customTimeWrapper {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#customTimeError {
+  color: whitesmoke;
+}
+
+#customTimeInputStart,
+#customTimeInputEnd {
+  outline: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid;
+  color: currentcolor;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
