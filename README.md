@@ -6,6 +6,8 @@ Can work with different timezones, data always return to UTC+0
 
 #### [Try Demo](https://imn-d.github.io/weekly-table/)
 
+#### [NPM package](https://www.npmjs.com/package/react-weekly-table)
+
 ### Quick Start
 
 Parent object must have sizing and `relative` prop <br/>
