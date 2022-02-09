@@ -1,6 +1,6 @@
 {
   "name": "react-weekly-table",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "homepage": "https://github.com/imn-d/weekly-table",
