@@ -1,6 +1,7 @@
 import React, {
   FC,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -34,13 +35,12 @@ export const useScheduler = (): SchedulerProps => useContext(SchedulerContext);
  */
 const Scheduler: FC<SchedulerInputProps> = (props: SchedulerInputProps) => {
   const [update, setUpdate] = useState<number>(0);
+  const updater = useCallback(() => setUpdate((update) => update + 1), []);
 
   useEffect(() => {
-    window.addEventListener('resize', () => setUpdate((update) => update + 1));
+    window.addEventListener('resize', updater);
     return () => {
-      window.removeEventListener('resize', () =>
-        setUpdate((update) => update + 1),
-      );
+      window.removeEventListener('resize', updater);
     };
   }, []);
 
