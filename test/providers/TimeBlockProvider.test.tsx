@@ -26,6 +26,7 @@ describe('TimeBlock Provider', () => {
   const useLockMock = jest.spyOn(up, 'usePointerLock');
 
   jest.spyOn(rand, 'random').mockReturnValue('1111');
+  Date.prototype.getTimezoneOffset = () => -300;
 
   const schedulerMock = {
     columns: schedulerColumns,
