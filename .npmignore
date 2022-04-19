@@ -5,6 +5,7 @@ src
 coverage
 test
 
+.github
 .git
 .idea
 .project
