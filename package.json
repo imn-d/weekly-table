@@ -113,6 +113,9 @@
       "src/**/*.(t|j)sx",
       "src/**/*.(t|j)s"
     ],
-    "coverageDirectory": "./coverage"
+    "coverageDirectory": "./coverage",
+    "coverageReporters": [
+      "json-summary"
+    ]
   }
 }
