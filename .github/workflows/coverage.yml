@@ -26,5 +26,3 @@ jobs:
     
     - name: coverage
       uses: tj-actions/coverage-badge-js@v1.3
-      with:
-       report_path: coverage/coverage-final.json
